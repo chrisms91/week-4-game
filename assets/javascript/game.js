@@ -111,24 +111,76 @@ $(document).ready(function(){
 
 			//render enemyCharacter
 			if(renderArea === '#enemyCharacter'){
+
 				for(var i=0; i<enemyArr.length; i++){
-					console.log("name: " + name);
-					console.log("enemyArr: " + enemyArr[i].name);
+					// console.log("name: " + name);
+					// console.log("enemyArr: " + enemyArr[i].name);
 					if(enemyArr[i].name === name) {
-						console.log("FIND MATCHING NAME: " + enemyArr[i].name);
+						// console.log("FIND MATCHING NAME: " + enemyArr[i].name);
 						gameObject.renderOne(enemyArr[i], renderArea, 'defender');
 					}
 				}
 			}
+		},
+
+		searchObject: function(array, key, prop){
+			prop = (typeof prop === 'undefined') ? 'name' : prop;
+
+			for(var i=0; i<array.length; i++){
+				if (array[i][prop] === key){
+					return array[i];
+				}
+			}
 		}
-	};
+	}; ///// gameObject End //////
 
-	currPlayer = gameObject.characterListArray[2];
-	enemyArr = gameObject.characterListArray;
+	// currPlayer = gameObject.characterListArray[2];
+	// enemyArr = gameObject.characterListArray;
+	// gameObject.renderCharacters(enemyArr, "#enemyList");
+	// gameObject.renderCharacters(currPlayer, "#yourCharacter");
+
+	var charList = gameObject.characterListArray;
+
+	//display every characters to select user character
+	gameObject.renderCharacters(charList, '#characterList');
+
+	//when the user pick character
+	$(document).on('click', '.characterContainer', function(){
+		name = $(this).data('name');
+		console.log("name: " + name);
+		
+		if(!currPlayer){
+			currPlayer = gameObject.searchObject(charList, name);
+			
+			//put characters into enemyArr except user's character
+			for(var i=0; i<charList.length; i++){
+				if(charList[i].name != name){
+					enemyArr.push(charList[i]);
+				}
+			}
+			//after pick user character, hide characterList and display enemyList, yourCharacter
+			$('#characterList').hide();
+
+			console.log(enemyArr);
+			gameObject.renderCharacters(currPlayer, '#yourCharacter');
+			gameObject.renderCharacters(enemyArr, '#enemyList');
+
+		}
+	})
+
+	
 
 
-	gameObject.renderCharacters(enemyArr, "#enemyList");
-	gameObject.renderCharacters(currPlayer, "#yourCharacter");
+
+
+
+
+
+
+
+
+
+
 
 	
 });
