@@ -86,7 +86,7 @@ $(document).ready(function(){
 				gameObject.renderOne(characterArr, renderArea, '');
 			}
 
-			//render enemy character
+			//render enemylist
 			if(renderArea === '#enemyList'){
 				for(var i=0; i<enemyArr.length; i++){
 					gameObject.renderOne(enemyArr[i], renderArea, 'enemy');
@@ -94,17 +94,38 @@ $(document).ready(function(){
 
 				//render one clicked enemy to defender
 				$(document).on('click','.enemy', function(){
-					var name = $(this).data('name');
-					console.log(name);
-					$(this).hide();
+					name = $(this).data('name');
+
+					// console.log("is(':empty') " + $('#enemyCharacter').is(':empty'));
+					// console.log("$('#enemyCharacter').text().length) " + $('#enemyCharacter').text().length);
+					// console.log("$('#enemyCharacter').children().length) " + $('#enemyCharacter').children().length);
+
+					//add it to defender area and hide clicked one from enemyList.
+					if($('#enemyCharacter').children().length === 0){
+						console.log("nnnnname: " + name);
+						gameObject.renderCharacters(name, '#enemyCharacter');
+						$(this).hide();
+					}
 				});
 			}
 
+			//render enemyCharacter
+			if(renderArea === '#enemyCharacter'){
+				for(var i=0; i<enemyArr.length; i++){
+					console.log("name: " + name);
+					console.log("enemyArr: " + enemyArr[i].name);
+					if(enemyArr[i].name === name) {
+						console.log("FIND MATCHING NAME: " + enemyArr[i].name);
+						gameObject.renderOne(enemyArr[i], renderArea, 'defender');
+					}
+				}
+			}
 		}
 	};
 
 	currPlayer = gameObject.characterListArray[2];
 	enemyArr = gameObject.characterListArray;
+
 
 	gameObject.renderCharacters(enemyArr, "#enemyList");
 	gameObject.renderCharacters(currPlayer, "#yourCharacter");
