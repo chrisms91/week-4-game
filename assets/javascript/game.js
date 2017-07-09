@@ -2,6 +2,13 @@
 //Main Function that wraps everything
 $(document).ready(function(){
 
+	//Global Variables
+	var currPlayer;
+	var currDefender;
+	var enemyArr = [];
+
+
+	//gameObject that containes character info and helper functions.
 	var gameObject = {
 
 		characterListArray: [ 
@@ -48,7 +55,7 @@ $(document).ready(function(){
 			counterAttackPower: 24,
 		}],
 
-		renderOne: function(characterArr, renderArea){
+		renderOne: function(characterArr, renderArea, makeChar){
 			// <div class="character" data-name="character.name">
 			var charDiv = $('<div class="characterContainer" data-name="' + characterArr.name + '">');
 			var charName = $('<p class="character-name">').text(characterArr.name);
@@ -57,16 +64,42 @@ $(document).ready(function(){
 
 			charDiv.append(charName).append(charImage).append(charHealth);
 			$(renderArea).append(charDiv);
+
+			if(makeChar === 'enemy'){
+				$(charDiv).addClass('bg-black');
+			} else if(makeChar === 'defender'){
+				$(charDiv).addClass('bg-red');
+			}
+		},
+
+		renderCharacters: function(characterArr, renderArea){
+
+			//render All characters in characterList
+			if(renderArea === '#characterList'){
+				for(var i=0; i<characterArr.length; i++){
+					gameObject.renderOne(characterArr[i], "#characterList", '');
+				}
+			}
+
+			//render player character
+			if(renderArea === '#yourCharacter'){
+				gameObject.renderOne(characterArr, renderArea, '');
+			}
+
+			//render enemy character
+			if(renderArea === '#enemyCharacter'){
+				for(var i=0; i<enemyArr.length; i++){
+					gameObject.renderOne(enemyArr, renderArea, 'enemy');
+				}
+			}
 		}
+
 	};
 
-	
-	for(var i=0; i<gameObject.characterListArray.length; i++){
-		gameObject.renderOne(gameObject.characterListArray[i], "#characterList");
-	}
+	currPlayer = gameObject.characterListArray[2];
 
-
-
+	gameObject.renderCharacters(gameObject.characterListArray, "#characterList");
+	gameObject.renderCharacters(currPlayer, "#yourCharacter");
 
 	
 });
