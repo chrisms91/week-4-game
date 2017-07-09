@@ -37,7 +37,7 @@ body {
   margin-right: auto;
 }
 
-.bg-red {
+.defender {
   background-color: #ce2121;
 }
 
@@ -45,6 +45,6 @@ body {
   background-color: white;
 }
 
-.bg-black {
+.enemy {
   background-color: grey;
 }

@@ -66,9 +66,9 @@ $(document).ready(function(){
 			$(renderArea).append(charDiv);
 
 			if(makeChar === 'enemy'){
-				$(charDiv).addClass('bg-black');
+				$(charDiv).addClass('enemy');
 			} else if(makeChar === 'defender'){
-				$(charDiv).addClass('bg-red');
+				$(charDiv).addClass('defender');
 			}
 		},
 
@@ -87,18 +87,26 @@ $(document).ready(function(){
 			}
 
 			//render enemy character
-			if(renderArea === '#enemyCharacter'){
+			if(renderArea === '#enemyList'){
 				for(var i=0; i<enemyArr.length; i++){
-					gameObject.renderOne(enemyArr, renderArea, 'enemy');
+					gameObject.renderOne(enemyArr[i], renderArea, 'enemy');
 				}
-			}
-		}
 
+				//render one clicked enemy to defender
+				$(document).on('click','.enemy', function(){
+					var name = $(this).data('name');
+					console.log(name);
+					$(this).hide();
+				});
+			}
+
+		}
 	};
 
 	currPlayer = gameObject.characterListArray[2];
+	enemyArr = gameObject.characterListArray;
 
-	gameObject.renderCharacters(gameObject.characterListArray, "#characterList");
+	gameObject.renderCharacters(enemyArr, "#enemyList");
 	gameObject.renderCharacters(currPlayer, "#yourCharacter");
 
 	
