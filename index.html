@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Star Wars RPG Game!</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Style.css -->
+	<link href="assets/css/style.css" rel="stylesheet" type="text/css">
+
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+	<div id="wrapper">
+	
+		<!-- Header -->
+		<header>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-12 text-center">
+						<h1> StarWars RPG Game! </h1>
+					</div>
+				</div>
+			</div>	
+		</header>
+
+		<!-- Main Game -->
+		<div class="container-fluid mainStage">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<h4>Select Your Character</h4>
+					
+					<div class="col-xs-12">
+						<!-- update characterlist here -->
+						<div id="characterList">
+							<p> characterList </p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<h4>Selecter Your Enemy </h4>
+
+					<div class="col-cs-12">
+						<div id="enemyList">
+							<p> enemyList </p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<hr>
+
+			<!-- Battle Arena Header -->
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<h2> Battle Arena! </h2>
+				</div>
+			</div>
+
+			<!-- Battle Arena Main -->
+			<div class="row">
+				<div class="col-xs-12 col-md-4 col-lg-4 text-center">
+					<h2> Your Character </h2>
+					<!-- update your character dynamically -->
+					<div id="yourCharacter">
+					</div>
+				</div>
+		
+				<div class="col-xs-12 col-md-4 col-lg-4 text-center">
+					<button class="btn btn-lg btn-danger" id="attackBtn">Attack</button>
+				</div>
+
+				<div class="col-xs-12 col-md-4 col-lg-4 text-center">
+					<h2> Enemy Character </h2>
+					<!-- update enemy dynamically -->
+					<div id="enemyCharacter">
+					</div>
+				</div>
+			</div>
+
+			<!-- Game status -->
+			<div class="row">
+				<div class="col-xs-12 col-md-2 col-lg-2">
+				</div>
+				<div class="col-xs-12 col-md-8 col-lg-8 text-center">
+					<!-- update game status -->
+					<div id="gameStatus">
+						<p>gameStatus</p>
+					</div>
+					<!-- reset btn later -->
+					<div id="gameOver">
+						<button class="btn btn-lg btn-default hidden" id="resetBtn">Reset</button>
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-2 col-lg-2">
+				</div>
+			</div>
+
+		</div><!-- ./container-fluid mainStage -->
+	</div><!-- ./wrapper -->
+
+	<script type="text/javascript" src="assets/javascript/game.js"></script>
+
+</body>
+</html>
