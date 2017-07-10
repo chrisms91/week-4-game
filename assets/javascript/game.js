@@ -6,6 +6,7 @@ $(document).ready(function(){
 	var currPlayer;
 	var currDefender;
 	var enemyArr = [];
+	var attackCounter = 1;
 
 
 	//gameObject that containes character info and helper functions.
@@ -76,6 +77,7 @@ $(document).ready(function(){
 
 			//render All characters in characterList
 			if(renderArea === '#characterList'){
+				$(renderArea).empty();
 				for(var i=0; i<characterArr.length; i++){
 					gameObject.renderOne(characterArr[i], "#characterList", '');
 				}
@@ -111,16 +113,34 @@ $(document).ready(function(){
 
 			//render enemyCharacter
 			if(renderArea === '#enemyCharacter'){
-
+				$(renderArea).empty();
 				for(var i=0; i<enemyArr.length; i++){
 					// console.log("name: " + name);
 					// console.log("enemyArr: " + enemyArr[i].name);
 					if(enemyArr[i].name === name) {
 						// console.log("FIND MATCHING NAME: " + enemyArr[i].name);
 						gameObject.renderOne(enemyArr[i], renderArea, 'defender');
+						currDefender = enemyArr[i];
 					}
 				}
 			}
+
+			//render again when yourCharacter is attacked
+			if(renderArea === 'playerDamaged'){
+				$('#yourCharacter').empty();
+				gameObject.renderOne(characterArr, '#yourCharacter', '');
+			}
+
+			//render again when enemyCharacter is attacked
+			if(renderArea === 'enemyDamaged'){
+				$('#enemyCharacter').empty();
+				gameObject.renderOne(characterArr, '#enemyCharacter', 'defender');
+			}
+		},
+
+		displayMsg: function(msg){
+			var gameStatus = $('#gameStatus');
+			gameStatus.html(msg);
 		},
 
 		searchObject: function(array, key, prop){
@@ -161,11 +181,32 @@ $(document).ready(function(){
 			//after pick user character, hide characterList and display enemyList, yourCharacter
 			$('#characterList').hide();
 
-			console.log(enemyArr);
 			gameObject.renderCharacters(currPlayer, '#yourCharacter');
 			gameObject.renderCharacters(enemyArr, '#enemyList');
-
 		}
+	});
+
+	//when attack button is clicked, something happen btw characters.
+	$('#attackBtn').on('click', function(){
+
+		//button functions only when there is defender in area
+		if($('#yourCharacter').children().length === 0 || $('#enemyCharacter').children().length === 0){
+			gameObject.displayMsg('Please choose your character and enemy character.');
+		} else {
+
+			currDefender.healthPoints -= currPlayer.attackPower * attackCounter;
+
+			var msg = 'You attacked ' + currDefender.name + ' for ' + (currPlayer.attackPower * attackCounter) + ' damage.' + 
+								'<br />' + currDefender.name + ' attacked you back for ' + currDefender.counterAttackPower + ' damage.';
+			gameObject.displayMsg(msg);
+			attackCounter++;
+
+			gameObject.renderCharacters(currDefender, 'enemyDamaged');
+
+			
+		}
+
+		
 	})
 
 	
