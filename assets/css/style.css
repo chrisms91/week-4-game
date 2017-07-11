@@ -1,7 +1,22 @@
-
+@font-face{
+  font-family: "SF Distant Galaxy Regular";
+  src: url('../fonts/SFDistantGalaxy.ttf');
+}
 body {
-  font-family: 'Share Tech Mono', monospace;
-  color: black;
+  font-family: 'SF Distant Galaxy Regular';
+  color: white;
+}
+
+h1 {
+  font-size: 58px;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+h4 {
+  font-size: 24px;
 }
 
 #wrap {
@@ -9,7 +24,6 @@ body {
     height: auto !important;
     height: 100%;
     margin: 0 auto -60px;
-
 }
 
 #attackBtn {
@@ -25,6 +39,11 @@ body {
 #gameStatus {
   font-size: 30px;
   margin-top: 30px;
+  color: yellow;
+}
+
+hr {
+  border-color: grey;
 }
 
 /*---------------------*/
@@ -37,6 +56,7 @@ body {
   margin-bottom: 10px;
   margin-right: 10px;
   border-radius: 7px;
+  background-color: white;
 }
 
 .characterContainer p, .enemyContainer p {
@@ -55,7 +75,7 @@ body {
 }
 
 .defender {
-  background-color: #ce2121;
+  background-color: #FA5A5A;
 }
 
 .bg-white {

@@ -67,7 +67,7 @@
 			<!-- Battle Arena Header -->
 			<div class="row">
 				<div class="col-xs-12 text-center">
-					<h2> Battle Arena! </h2>
+					<h2> Battle Arena </h2>
 				</div>
 			</div>
 
@@ -115,6 +115,15 @@
 	</div><!-- ./wrapper -->
 
 	<script type="text/javascript" src="assets/javascript/game.js"></script>
+	<script type="text/javascript" src="assets/javascript/jquery.backstretch.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$.backstretch(['assets/images/bg-starwars.gif', 'assets/images/bg-battle.jpg', 'assets/images/bg-darth.jpg','assets/images/bg-trooper.jpg', 'assets/images/bg-kylo.jpg'], {
+		    	duration: 7000,
+		      fade: 900
+			});
+    });
+	</script>
 
 </body>
 </html>

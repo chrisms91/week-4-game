@@ -227,9 +227,11 @@ $(document).ready(function(){
 
 				//losing condition
 				if(currPlayer.healthPoints < 0){
+
 					msg = currDefender.name + ' has defeated you! GAME OVER :)';
 					gameObject.displayMsg(msg);
 					gameObject.restartGame();
+					$('#attackBtn').prop('disabled', true);
 				}
 			} else {
 				// gameObject.renderCharacters(currDefender, 'enemyDamaged');
