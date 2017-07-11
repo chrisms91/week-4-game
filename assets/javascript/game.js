@@ -7,7 +7,7 @@ $(document).ready(function(){
 	var currDefender;
 	var enemyArr = [];
 	var attackCounter = 1;
-	var killCounter
+	var killCounter = 0;
 
 	//gameObject that containes character info and helper functions.
 	var gameObject = {
@@ -18,14 +18,14 @@ $(document).ready(function(){
 			img: 'assets/images/luke.jpg',
 			healthPoints: 160,
 			attackPower: 10,
-			counterAttackPower: 20,
+			counterAttackPower: 22,
 		},
 		{
 			name: 'Yoda',
 			img: 'assets/images/yoda.png',
 			healthPoints: 130,
 			attackPower: 15,
-			counterAttackPower: 30,
+			counterAttackPower: 32,
 		},
 		{
 			name: 'R2D2',
@@ -38,7 +38,7 @@ $(document).ready(function(){
 			name: 'Darth Vader',
 			img: 'assets/images/darth-vader.jpg',
 			healthPoints: 170,
-			attackPower: 15,
+			attackPower: 16,
 			counterAttackPower: 25,
 		},
 		{
@@ -46,14 +46,14 @@ $(document).ready(function(){
 			img: 'assets/images/kylo-ren.jpg',
 			healthPoints: 120,
 			attackPower: 13,
-			counterAttackPower: 20,
+			counterAttackPower: 21,
 		},
 		{
 			name: 'Obi Wan Kenobi',
 			img: 'assets/images/obi-wan.jpg',
 			healthPoints: 140,
 			attackPower: 10,
-			counterAttackPower: 24,
+			counterAttackPower: 23,
 		}],
 
 		renderOne: function(characterArr, renderArea, makeChar){
@@ -234,12 +234,13 @@ $(document).ready(function(){
 					$('#attackBtn').prop('disabled', true);
 				}
 			} else {
-				// gameObject.renderCharacters(currDefender, 'enemyDamaged');
+				// defeat single enemy
 				$('#enemyCharacter').empty();
 				msg = 'You have defeated ' + currDefender.name + ', choose another enemy to fight';
 				gameObject.displayMsg(msg);
 				killCounter++;
 
+				// winning condition
 				if(killCounter === 5){
 					msg = 'You defeated all enemies! GAME OVER!';
 					gameObject.displayMsg(msg);
