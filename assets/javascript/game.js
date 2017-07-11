@@ -7,7 +7,7 @@ $(document).ready(function(){
 	var currDefender;
 	var enemyArr = [];
 	var attackCounter = 1;
-
+	var killCounter
 
 	//gameObject that containes character info and helper functions.
 	var gameObject = {
@@ -104,7 +104,6 @@ $(document).ready(function(){
 
 					//add it to defender area and hide clicked one from enemyList.
 					if($('#enemyCharacter').children().length === 0){
-						console.log("nnnnname: " + name);
 						gameObject.renderCharacters(name, '#enemyCharacter');
 						$(this).hide();
 					}
@@ -151,8 +150,20 @@ $(document).ready(function(){
 					return array[i];
 				}
 			}
+		},
+
+		restartGame: function(){
+			// var $restart = $('<button class="btn btn-primary btn-lg>Battle Again!</button>').on('click', function(){
+			// 	location.reload();
+			// });
+			var $restart = $('<br /><input type="button" value="Battle Again!" class="btn btn-primary btn-lg" id="restartBtn"/>').on('click', function(){
+				location.reload();
+			});
+			$restart.appendTo('#gameStatus');
+			console.log("restart");
+			// $('#gameStatus').append(restart);
 		}
-	}; ///// gameObject End //////
+	}; /*************** gameObject End ****************/
 
 	// currPlayer = gameObject.characterListArray[2];
 	// enemyArr = gameObject.characterListArray;
@@ -167,8 +178,6 @@ $(document).ready(function(){
 	//when the user pick character
 	$(document).on('click', '.characterContainer', function(){
 		name = $(this).data('name');
-		console.log("name: " + name);
-		
 		if(!currPlayer){
 			currPlayer = gameObject.searchObject(charList, name);
 			
@@ -189,6 +198,9 @@ $(document).ready(function(){
 	//when attack button is clicked, something happen btw characters.
 	$('#attackBtn').on('click', function(){
 
+		console.log("player name: " + currPlayer.name + "  currPlayer.health: " + currPlayer.healthPoints);
+		console.log("defender name: " + currDefender.name + "  currDefender.health: " + currDefender.healthPoints);
+
 		//button functions only when there is defender in area
 		if($('#yourCharacter').children().length === 0 || $('#enemyCharacter').children().length === 0){
 			gameObject.displayMsg('Please choose your character and enemy character.');
@@ -196,32 +208,43 @@ $(document).ready(function(){
 
 			currDefender.healthPoints -= currPlayer.attackPower * attackCounter;
 
-			var msg = 'You attacked ' + currDefender.name + ' for ' + (currPlayer.attackPower * attackCounter) + ' damage.' + 
+			// if(currDefender.healthPoints <= 0 || currPlayer.healthPoints <= 0){
+			// 	currDefender.healthPoints = 0;
+			// 	currPlayer.healthPoints = 0;
+			// }
+
+			if(currDefender.healthPoints > 0){
+				//enemy is stil alive, keep playing
+				gameObject.renderCharacters(currDefender, 'enemyDamaged');
+				var msg = 'You attacked ' + currDefender.name + ' for ' + (currPlayer.attackPower * attackCounter) + ' damage.' + 
 								'<br />' + currDefender.name + ' attacked you back for ' + currDefender.counterAttackPower + ' damage.';
-			gameObject.displayMsg(msg);
-			attackCounter++;
+				gameObject.displayMsg(msg);
+				attackCounter++;
+				
+				currPlayer.healthPoints -= currDefender.counterAttackPower;
 
-			gameObject.renderCharacters(currDefender, 'enemyDamaged');
+				gameObject.renderCharacters(currPlayer, 'playerDamaged');
 
-			
+				//losing condition
+				if(currPlayer.healthPoints < 0){
+					msg = currDefender.name + ' has defeated you! GAME OVER :)';
+					gameObject.displayMsg(msg);
+					gameObject.restartGame();
+				}
+			} else {
+				// gameObject.renderCharacters(currDefender, 'enemyDamaged');
+				$('#enemyCharacter').empty();
+				msg = 'You have defeated ' + currDefender.name + ', choose another enemy to fight';
+				gameObject.displayMsg(msg);
+				killCounter++;
+
+				if(killCounter === 5){
+					msg = 'You defeated all enemies! GAME OVER!';
+					gameObject.displayMsg(msg);
+					gameObject.restartGame();
+				}
+			}
 		}
-
-		
 	})
 
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
 });

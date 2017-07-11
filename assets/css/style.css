@@ -17,6 +17,11 @@ body {
   margin-top: 100px;
 }
 
+#restartBtn {
+  vertical-align: middle;
+  margin-top: 15px;
+}
+
 #gameStatus {
   font-size: 30px;
   margin-top: 30px;
